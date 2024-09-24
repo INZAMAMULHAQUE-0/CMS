@@ -3,7 +3,7 @@ import Allroutes from './component/Allroutes';
 import ProtectRoutes from './context/ProtectRotues';
 const App = () => {
   return (
-    <div Style={{border:'1px solid',width : '100%'}}>
+    <div style={{border:'1px solid',width : '100%'}}>
       <ProtectRoutes>
         <Allroutes/>
       </ProtectRoutes>
