@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import "./Login.css";
 import Validation from "./Validation";
 import { Box, Button, Card, Input } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { FaUserMd } from "react-icons/fa"; 
+import UserContext from "../context/UserContext";
+
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -11,8 +13,11 @@ const Login = () => {
     password: "",
   });
 
+
   const [errors, setErrors] = useState({});
   const [data, setData] = useState([]);
+  const {setProtect} =useContext(UserContext)
+ 
 
   async function fetchData() {
     let res = await fetch("http://localhost:5000/api/admins");
@@ -55,8 +60,11 @@ const Login = () => {
 
   const nav = useNavigate();
 
+
   function handleNavigate() {
+    setProtect(true)
     nav("/dashboard");
+
   }
 
   return (
