@@ -41,6 +41,7 @@ exports.updateAdmin = async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 };
+
 exports.deleteAdmin = async (req, res) => {
   try {
     const admin = await Admin.findByIdAndDelete(req.params.id);
