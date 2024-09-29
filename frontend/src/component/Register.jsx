@@ -23,7 +23,7 @@ const Register = () => {
       setEditIndex(null);
     } else {
       try {
-        await axios.post('http://localhost:5000/api/admins', form);
+        await axios.post(`${REACT_APP_BACKEND_URL}/api/admins`, form);
         setAdmins([...admins, form]);
         setIsRegistered(true);
       } catch (error) {

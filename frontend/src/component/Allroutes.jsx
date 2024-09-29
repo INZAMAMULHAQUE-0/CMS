@@ -15,6 +15,7 @@ import UserContext from '../context/UserContext';
 const AllRoutes = () => {
   const { protect } = useContext(UserContext);
   console.log(protect);
+  console.log(REACT_APP_BACKEND_URL)
   
   return (
     <div>

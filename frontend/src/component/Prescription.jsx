@@ -27,8 +27,8 @@ const PrescriptionForm = ({ editingPrescription }) => {
     useEffect(() => {
         const fetchPatientsAndDoctors = async () => {
             try {
-                const patientsResponse = await axios.get('http://localhost:5000/api/patients');
-                const doctorsResponse = await axios.get('http://localhost:5000/api/doctors');
+                const patientsResponse = await axios.get(`${REACT_APP_BACKEND_URL}/api/patients`);
+                const doctorsResponse = await axios.get(`${REACT_APP_BACKEND_URL}/api/doctors`);
                 setPatients(patientsResponse.data);
                 setDoctors(doctorsResponse.data);
             } catch (error) {
@@ -50,9 +50,9 @@ const PrescriptionForm = ({ editingPrescription }) => {
         e.preventDefault();
         try {
             if (editingPrescription) {
-                await axios.put(`http://localhost:5000/api/prescriptions/${prescription.PrescriptionID}`, prescription);
+                await axios.put(`${REACT_APP_BACKEND_URL}/api/prescriptions/${prescription.PrescriptionID}`, prescription);
             } else {
-                await axios.post('http://localhost:5000/api/prescriptions', prescription);
+                await axios.post(`${REACT_APP_BACKEND_URL}/api/prescriptions`, prescription);
             }
             setPrescription({
                 PrescriptionID: '',

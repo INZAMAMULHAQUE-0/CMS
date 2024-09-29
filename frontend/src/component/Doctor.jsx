@@ -23,7 +23,7 @@ const Doctor = () => {
 
   const fetchDoctors = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/doctors');
+      const response = await axios.get(`${REACT_APP_BACKEND_URL}/api/doctors`);
       setDoctors(response.data);
     } catch (error) {
       console.error('Error fetching doctors:', error);
@@ -45,10 +45,10 @@ const Doctor = () => {
 
     try {
       if (isEditing) {
-        await axios.put(`http://localhost:5000/api/doctors/${currentDoctor.doctorID}`, currentDoctor);
+        await axios.put(`${REACT_APP_BACKEND_URL}/api/doctors/${currentDoctor.doctorID}`, currentDoctor);
         setIsEditing(false);
       } else {
-        await axios.post('http://localhost:5000/api/doctors', currentDoctor);
+        await axios.post(`${REACT_APP_BACKEND_URL}/api/doctors`, currentDoctor);
       }
       fetchDoctors();
       setCurrentDoctor({
@@ -73,7 +73,7 @@ const Doctor = () => {
     const isConfirmed = window.confirm('Are you sure you want to delete this doctor?');
     if (isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/api/doctors/${doctorID}`);
+        await axios.delete(`${REACT_APP_BACKEND_URL}/api/doctors/${doctorID}`);
         fetchDoctors();
       } catch (error) {
         console.error('Error deleting doctor:', error);

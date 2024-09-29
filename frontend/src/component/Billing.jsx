@@ -24,10 +24,10 @@ const Billing = () => {
   useEffect(() => {
     const fetchBillsAndPatients = async () => {
       try {
-        const billsResponse = await axios.get('http://localhost:5000/api/billings');
+        const billsResponse = await axios.get(`${REACT_APP_BACKEND_URL}/api/billings`);
         setBills(billsResponse.data);
 
-        const patientsResponse = await axios.get('http://localhost:5000/api/patients');
+        const patientsResponse = await axios.get(`${REACT_APP_BACKEND_URL}/api/patients`);
         setPatients(patientsResponse.data);
       } catch (error) {
         console.error('Error fetching bills or patients:', error);
@@ -45,12 +45,12 @@ const Billing = () => {
   const handleAddOrUpdate = async () => {
     try {
       if (editIndex === -1) {
-        await axios.post('http://localhost:5000/api/billings', newBill);
+        await axios.post(`${REACT_APP_BACKEND_URL}/api/billings`, newBill);
       } else {
-        await axios.put(`http://localhost:5000/api/billings/${newBill.BillID}`, newBill);
+        await axios.put(`${REACT_APP_BACKEND_URL}/api/billings/${newBill.BillID}`, newBill);
         setEditIndex(-1);
       }
-      const billsResponse = await axios.get('http://localhost:5000/api/billings');
+      const billsResponse = await axios.get(`${REACT_APP_BACKEND_URL}/api/billings`);
       setBills(billsResponse.data);
       setNewBill({ BillID: '', PatientID: '', Date: '', BillAmount: '', PaymentStatus: '', AreaOfService: '' });
     } catch (error) {
@@ -67,7 +67,7 @@ const Billing = () => {
     const isConfirmed = window.confirm('Are you sure you want to delete this bill?');
     if (isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/api/billings/${bills[index].BillID}`);
+        await axios.delete(`${REACT_APP_BACKEND_URL}/api/billings/${bills[index].BillID}`);
         const updatedBills = bills.filter((_, i) => i !== index);
         setBills(updatedBills);
       } catch (error) {

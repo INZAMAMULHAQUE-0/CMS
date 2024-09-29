@@ -20,9 +20,10 @@ const Login = () => {
  
 
   async function fetchData() {
-    let res = await fetch("http://localhost:5000/api/admins");
+    let res = await fetch(`${REACT_APP_BACKEND_URL}/api/admins`);
     let loginarr = await res.json();
     setData(loginarr);
+    
   }
 
   useEffect(() => {
