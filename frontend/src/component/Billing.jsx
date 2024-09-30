@@ -10,7 +10,7 @@ const Billing = () => {
   const [newBill, setNewBill] = useState({
     BillID: '', PatientID: '', Date: '', BillAmount: '', PaymentStatus: '', AreaOfService: ''
   });
-  const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  let REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
   const navigate = useNavigate();
 
   const handleBackClick = () => {

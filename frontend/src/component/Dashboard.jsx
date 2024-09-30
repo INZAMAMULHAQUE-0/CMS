@@ -24,7 +24,7 @@ const Dashboard = () => {
       },
     ],
   };
-  const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  let REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
   const chartOptions = {
     maintainAspectRatio: false,
