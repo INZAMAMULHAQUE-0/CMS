@@ -14,7 +14,7 @@ const Disease = () => {
     NextVisitDate: ''
   });
   const [editingDiseaseID, setEditingDiseaseID] = useState(null);
-
+  const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
   const navigate = useNavigate();
 
   const handleBackClick = () => {

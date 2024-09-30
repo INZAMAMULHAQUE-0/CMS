@@ -330,6 +330,8 @@ function Transaction() {
   const [bill, setBill] = useState([]);
   const [prescriptions, setPrescriptions] = useState([]);
 
+  const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
   const navigate = useNavigate(); 
 
   async function fetchPatientsData() {

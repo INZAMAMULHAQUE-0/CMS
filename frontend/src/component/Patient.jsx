@@ -18,7 +18,7 @@ const Patient = () => {
   });
   const [editingPatientID, setEditingPatientID] = useState(null);
   const navigate = useNavigate();
-
+  const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
   useEffect(() => {
     const fetchPatients = async () => {
       try {

@@ -10,7 +10,8 @@ const Register = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const navigate = useNavigate();
-
+  const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  
   const handleInputChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };

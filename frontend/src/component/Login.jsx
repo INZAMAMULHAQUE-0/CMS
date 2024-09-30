@@ -17,8 +17,8 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [data, setData] = useState([]);
   const {setProtect} =useContext(UserContext)
- 
-
+  const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  
   async function fetchData() {
     let res = await fetch(`${REACT_APP_BACKEND_URL}/api/admins`);
     let loginarr = await res.json();
