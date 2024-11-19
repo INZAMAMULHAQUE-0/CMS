@@ -12,7 +12,7 @@ const PrescriptionForm = ({ editingPrescription }) => {
         MedicationDetails: '',
         Dosage: '',
     });
-    let REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+    let VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
     const [patients, setPatients] = useState([]);
     const [doctors, setDoctors] = useState([]);
 
@@ -27,8 +27,8 @@ const PrescriptionForm = ({ editingPrescription }) => {
     useEffect(() => {
         const fetchPatientsAndDoctors = async () => {
             try {
-                const patientsResponse = await axios.get(`${REACT_APP_BACKEND_URL}/api/patients`);
-                const doctorsResponse = await axios.get(`${REACT_APP_BACKEND_URL}/api/doctors`);
+                const patientsResponse = await axios.get(`${VITE_BACKEND_URL}/api/patients`);
+                const doctorsResponse = await axios.get(`${VITE_BACKEND_URL}/api/doctors`);
                 setPatients(patientsResponse.data);
                 setDoctors(doctorsResponse.data);
             } catch (error) {
@@ -50,9 +50,9 @@ const PrescriptionForm = ({ editingPrescription }) => {
         e.preventDefault();
         try {
             if (editingPrescription) {
-                await axios.put(`${REACT_APP_BACKEND_URL}/api/prescriptions/${prescription.PrescriptionID}`, prescription);
+                await axios.put(`${VITE_BACKEND_URL}/api/prescriptions/${prescription.PrescriptionID}`, prescription);
             } else {
-                await axios.post(`${REACT_APP_BACKEND_URL}/api/prescriptions`, prescription);
+                await axios.post(`${VITE_BACKEND_URL}/api/prescriptions`, prescription);
             }
             setPrescription({
                 PrescriptionID: '',

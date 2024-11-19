@@ -7,7 +7,6 @@ const App = () => {
       <ProtectRoutes>
         <Allroutes/>
       </ProtectRoutes>
-  
     </div>
 );
 }

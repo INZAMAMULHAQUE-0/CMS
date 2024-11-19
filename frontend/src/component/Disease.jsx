@@ -14,7 +14,7 @@ const Disease = () => {
     NextVisitDate: ''
   });
   const [editingDiseaseID, setEditingDiseaseID] = useState(null);
-  let REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  let VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
 
   const handleBackClick = () => {
@@ -28,7 +28,7 @@ const Disease = () => {
   useEffect(() => {
     const fetchDiseases = async () => {
       try {
-        const response = await axios.get('REACT_APP_BACKEND_URL/api/diseases');
+        const response = await axios.get('VITE_BACKEND_URL/api/diseases');
         setDiseases(response.data);
       } catch (error) {
         console.error('Error fetching diseases:', error);
@@ -49,7 +49,7 @@ const Disease = () => {
 
     try {
       if (editingDiseaseID) {
-        await axios.put(`${REACT_APP_BACKEND_URL}/api/diseases/${editingDiseaseID}`, formState);
+        await axios.put(`${VITE_BACKEND_URL}/api/diseases/${editingDiseaseID}`, formState);
         setDiseases(
           diseases.map((disease) =>
             disease.DiseaseID === editingDiseaseID ? { ...formState, DiseaseID: editingDiseaseID } : disease
@@ -57,7 +57,7 @@ const Disease = () => {
         );
         setEditingDiseaseID(null);
       } else {
-        const response = await axios.post(`${REACT_APP_BACKEND_URL}/api/diseases`, formState);
+        const response = await axios.post(`${VITE_BACKEND_URL}/api/diseases`, formState);
         setDiseases([...diseases, response.data]);
       }
       setFormState({
@@ -83,7 +83,7 @@ const Disease = () => {
     const isConfirmed = window.confirm('Are you sure you want to delete this disease?');
     if (isConfirmed) {
       try {
-        await axios.delete(`${REACT_APP_BACKEND_URL}/api/diseases/${id}`);
+        await axios.delete(`${VITE_BACKEND_URL}/api/diseases/${id}`);
         setDiseases(diseases.filter((disease) => disease.DiseaseID !== id));
       } catch (error) {
         console.error('Error deleting disease:', error);

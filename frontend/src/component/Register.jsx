@@ -10,7 +10,7 @@ const Register = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const navigate = useNavigate();
-  let REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  let VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   const handleInputChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -24,7 +24,7 @@ const Register = () => {
       setEditIndex(null);
     } else {
       try {
-        await axios.post(`${REACT_APP_BACKEND_URL}/api/admins`, form);
+        await axios.post(`${VITE_BACKEND_URL}/api/admins`, form);
         setAdmins([...admins, form]);
         setIsRegistered(true);
       } catch (error) {

@@ -14,7 +14,7 @@ const Doctor = () => {
     surgeries: '',
   });
   const [isEditing, setIsEditing] = useState(false);
-  let REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  let VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Doctor = () => {
 
   const fetchDoctors = async () => {
     try {
-      const response = await axios.get(`${REACT_APP_BACKEND_URL}/api/doctors`);
+      const response = await axios.get(`${VITE_BACKEND_URL}/api/doctors`);
       setDoctors(response.data);
     } catch (error) {
       console.error('Error fetching doctors:', error);
@@ -45,10 +45,10 @@ const Doctor = () => {
 
     try {
       if (isEditing) {
-        await axios.put(`${REACT_APP_BACKEND_URL}/api/doctors/${currentDoctor.doctorID}`, currentDoctor);
+        await axios.put(`${VITE_BACKEND_URL}/api/doctors/${currentDoctor.doctorID}`, currentDoctor);
         setIsEditing(false);
       } else {
-        await axios.post(`${REACT_APP_BACKEND_URL}/api/doctors`, currentDoctor);
+        await axios.post(`${VITE_BACKEND_URL}/api/doctors`, currentDoctor);
       }
       fetchDoctors();
       setCurrentDoctor({
@@ -73,7 +73,7 @@ const Doctor = () => {
     const isConfirmed = window.confirm('Are you sure you want to delete this doctor?');
     if (isConfirmed) {
       try {
-        await axios.delete(`${REACT_APP_BACKEND_URL}/api/doctors/${doctorID}`);
+        await axios.delete(`${VITE_BACKEND_URL}/api/doctors/${doctorID}`);
         fetchDoctors();
       } catch (error) {
         console.error('Error deleting doctor:', error);

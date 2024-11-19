@@ -23,31 +23,31 @@
 //   const navigate = useNavigate(); 
 
 //   async function fetchPatientsData() {
-//     let res = await fetch("REACT_APP_BACKEND_URL/api/patients");
+//     let res = await fetch("VITE_BACKEND_URL/api/patients");
 //     let arr1 = await res.json();
 //     setPatient(arr1);
 //   }
 
 //   async function fetchDoctorsData() {
-//     let res = await fetch("REACT_APP_BACKEND_URL/api/doctors");
+//     let res = await fetch("VITE_BACKEND_URL/api/doctors");
 //     let arr2 = await res.json();
 //     setDoctor(arr2);
 //   }
 
 //   async function fetchDiseaseData() {
-//     let res = await fetch("REACT_APP_BACKEND_URL/api/diseases");
+//     let res = await fetch("VITE_BACKEND_URL/api/diseases");
 //     let arr3 = await res.json();
 //     setDisease(arr3);
 //   }
 
 //   async function fetchPrescriptionData() {
-//     let res = await fetch("REACT_APP_BACKEND_URL/api/prescriptions");
+//     let res = await fetch("VITE_BACKEND_URL/api/prescriptions");
 //     let arr4 = await res.json();
 //     setPrescriptions(arr4);
 //   }
 
 //   async function fetchBillData() {
-//     let res = await fetch("REACT_APP_BACKEND_URL/api/billings");
+//     let res = await fetch("VITE_BACKEND_URL/api/billings");
 //     let arr5 = await res.json();
 //     setBill(arr5);
 //   }
@@ -165,7 +165,7 @@
 // async function sendData()
 // {
 //   try{
-//     await axios.post("REACT_APP_BACKEND_URL/api/transactions", {transactions});
+//     await axios.post("VITE_BACKEND_URL/api/transactions", {transactions});
 //   }
 //   catch{
 //     console.log("unable to post transaction")
@@ -330,36 +330,36 @@ function Transaction() {
   const [bill, setBill] = useState([]);
   const [prescriptions, setPrescriptions] = useState([]);
 
-  let REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  let VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   const navigate = useNavigate(); 
 
   async function fetchPatientsData() {
-    let res = await fetch(`${REACT_APP_BACKEND_URL}/api/patients`);
+    let res = await fetch(`${VITE_BACKEND_URL}/api/patients`);
     let arr1 = await res.json();
     setPatient(arr1);
   }
 
   async function fetchDoctorsData() {
-    let res = await fetch(`${REACT_APP_BACKEND_URL}/api/doctors`);
+    let res = await fetch(`${VITE_BACKEND_URL}/api/doctors`);
     let arr2 = await res.json();
     setDoctor(arr2);
   }
 
   async function fetchDiseaseData() {
-    let res = await fetch(`${REACT_APP_BACKEND_URL}/api/diseases`);
+    let res = await fetch(`${VITE_BACKEND_URL}/api/diseases`);
     let arr3 = await res.json();
     setDisease(arr3);
   }
 
   async function fetchPrescriptionData() {
-    let res = await fetch(`${REACT_APP_BACKEND_URL}/api/prescriptions`);
+    let res = await fetch(`${VITE_BACKEND_URL}/api/prescriptions`);
     let arr4 = await res.json();
     setPrescriptions(arr4);
   }
 
   async function fetchBillData() {
-    let res = await fetch(`${REACT_APP_BACKEND_URL}/api/billings`);
+    let res = await fetch(`${VITE_BACKEND_URL}/api/billings`);
     let arr5 = await res.json();
     setBill(arr5);
   }
@@ -507,7 +507,7 @@ function Transaction() {
 async function sendData()
 {
   try{
-    await axios.post(`${REACT_APP_BACKEND_URL}/api/transactions`, transactions[0]);
+    await axios.post(`${VITE_BACKEND_URL}/api/transactions`, transactions[0]);
   }
   catch(e){
     console.log(e)
@@ -518,7 +518,7 @@ async function sendData()
 async function sendData()
 {
   try{
-    await axios.post(`${REACT_APP_BACKEND_URL}/api/transactions`, {transactions});
+    await axios.post(`${VITE_BACKEND_URL}/api/transactions`, {transactions});
   }
   catch(e){
     console.log(e)

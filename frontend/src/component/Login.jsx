@@ -1,29 +1,28 @@
-import { useEffect, useState,useContext } from "react";
 import "./Login.css";
+import { useEffect, useState,useContext } from "react";
 import Validation from "./Validation";
 import { Box, Button, Card, Input } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { FaUserMd } from "react-icons/fa"; 
 import UserContext from "../context/UserContext";
 
-
 const Login = () => {
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
-
+  let VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  // console.log(VITE_BACKEND_URL);
 
   const [errors, setErrors] = useState({});
   const [data, setData] = useState([]);
   const {setProtect} =useContext(UserContext)
-  let REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
   async function fetchData() {
-    let res = await fetch(`${REACT_APP_BACKEND_URL}/api/admins`);
+    let res = await fetch(`${VITE_BACKEND_URL}/api/admins`);
     let loginarr = await res.json();
     setData(loginarr);
-    
+    console.log(data + "login details")
   }
 
   useEffect(() => {
@@ -55,6 +54,7 @@ const Login = () => {
         }
       } else {
         alert("Email is not registered, you can create a new");
+        // setProtect(true)
       }
     }
   }, [errors]);
@@ -65,7 +65,6 @@ const Login = () => {
   function handleNavigate() {
     setProtect(true)
     nav("/dashboard");
-
   }
 
   return (
@@ -114,7 +113,6 @@ const Login = () => {
           </form>
         </Card>
         <FaUserMd className="doctor-icon" />
-        {}
       </Box>
     </div>
   );

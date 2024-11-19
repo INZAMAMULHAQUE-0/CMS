@@ -18,11 +18,11 @@ const Patient = () => {
   });
   const [editingPatientID, setEditingPatientID] = useState(null);
   const navigate = useNavigate();
-  let REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  let VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await axios.get(`${REACT_APP_BACKEND_URL}/api/patients`);
+        const response = await axios.get(`${VITE_BACKEND_URL}/api/patients`);
         setPatients(response.data);
       } catch (error) {
         console.error('Error fetching patients:', error);
@@ -42,7 +42,7 @@ const Patient = () => {
 
     try {
       if (editingPatientID) {
-        await axios.put(`${REACT_APP_BACKEND_URL}/api/patients/${editingPatientID}`, formState);
+        await axios.put(`${VITE_BACKEND_URL}/api/patients/${editingPatientID}`, formState);
         setPatients(
           patients.map((patient) =>
             patient.patientID === editingPatientID ? { ...formState, patientID: editingPatientID } : patient
@@ -50,7 +50,7 @@ const Patient = () => {
         );
         setEditingPatientID(null);
       } else {
-        const response = await axios.post(`${REACT_APP_BACKEND_URL}/api/patients`, formState);
+        const response = await axios.post(`${VITE_BACKEND_URL}/api/patients`, formState);
         setPatients([...patients, response.data]);
       }
       setFormState({
@@ -79,7 +79,7 @@ const Patient = () => {
     const isConfirmed = window.confirm('Are you sure you want to delete this patient?');
     if (isConfirmed) {
       try {
-        await axios.delete(`${REACT_APP_BACKEND_URL}/api/patients/${id}`);
+        await axios.delete(`${VITE_BACKEND_URL}/api/patients/${id}`);
         setPatients(patients.filter((patient) => patient._id !== id));
       } catch (error) {
         console.error('Error deleting patient:', error);
