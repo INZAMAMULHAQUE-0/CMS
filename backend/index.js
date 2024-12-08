@@ -6,7 +6,7 @@ connectDB();
 
 // CORS configuration
 const corsOptions = {
-  origin: process.env.CLIENT_URL || 'http://localhost:5173', // Use CLIENT_URL from env or default to localhost for dev
+  origin: process.env.CLIENT_URL, // Use CLIENT_URL from env or default to localhost for dev
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   allowedHeaders: 'Content-Type, Authorization',
