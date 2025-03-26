@@ -1,4 +1,4 @@
-const Admin = require('../Models/adminModel');
+const Admin = require('../Models/Admin');
 
 exports.getAdmins = async (req, res) => {
   try {
@@ -8,17 +8,17 @@ exports.getAdmins = async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 };
-exports.createAdmin = async (req, res) => {
-  const { name, email, role } = req.body;
 
+exports.createAdmin = async (req, res) => {
   try {
-    const newAdmin = new Admin({ name, email, role });
-    await newAdmin.save();
-    res.status(201).json(newAdmin);
+    const newAdmin = new Admin(req.body);
+    const savedAdmin = await newAdmin.save();
+    res.status(201).json(savedAdmin);
   } catch (error) {
-    res.status(500).json({ message: 'Server Error' });
+    res.status(400).json({ error: error.message });
   }
 };
+
 exports.getAdminById = async (req, res) => {
   try {
     const admin = await Admin.findById(req.params.id);
@@ -27,18 +27,22 @@ exports.getAdminById = async (req, res) => {
     }
     res.json(admin);
   } catch (error) {
-    res.status(500).json({ message: 'Server Error' });
+    res.status(400).json({ error: error.message });
   }
 };
+
 exports.updateAdmin = async (req, res) => {
   try {
-    const admin = await Admin.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const admin = await Admin.findByIdAndUpdate(req.params.id, req.body, { 
+      new: true,
+      runValidators: true
+    });
     if (!admin) {
       return res.status(404).json({ message: 'Admin not found' });
     }
     res.json(admin);
   } catch (error) {
-    res.status(500).json({ message: 'Server Error' });
+    res.status(400).json({ error: error.message });
   }
 };
 
@@ -48,8 +52,8 @@ exports.deleteAdmin = async (req, res) => {
     if (!admin) {
       return res.status(404).json({ message: 'Admin not found' });
     }
-    res.json({ message: 'Admin deleted' });
+    res.json({ message: 'Admin deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Server Error' });
+    res.status(400).json({ error: error.message });
   }
 };

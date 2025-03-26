@@ -26,6 +26,7 @@ const Register = () => {
       try {
         await axios.post(`${VITE_BACKEND_URL}/api/admins`, form);
         setAdmins([...admins, form]);
+        console.log(admins);
         setIsRegistered(true);
       } catch (error) {
         console.error('Error registering admin:', error);

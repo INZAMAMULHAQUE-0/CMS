@@ -12,7 +12,7 @@ const Login = () => {
     password: "",
   });
   let VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-  console.log(VITE_BACKEND_URL, "url show");
+  //console.log(VITE_BACKEND_URL, "url show");
 
   const [errors, setErrors] = useState({});
   const [data, setData] = useState([]);
@@ -54,7 +54,7 @@ const Login = () => {
         }
       } else {
         alert("Email is not registered, you can create a new");
-        // setProtect(true)
+        setProtect(true)
       }
     }
   }, [errors]);
@@ -78,7 +78,7 @@ const Login = () => {
               className="input-glow"
               type="email"
               focusBorderColor="darkblue"
-              placeholder="a123@gmail.com"
+              placeholder="something@gmail.com"
               name="email"
               borderRadius="none"
               value={values.email}
@@ -91,7 +91,7 @@ const Login = () => {
               className="input-glow"
               type="password"
               focusBorderColor="darkblue"
-              placeholder="ayan123@"
+              placeholder="anything@123"
               borderRadius="none"
               value={values.password}
               name="password"
