@@ -1,21 +1,38 @@
-const Prescription = require('../Models/prescriptionModel');
+const Prescription = require('../Models/Prescription');
+const Doctor=require('../Models/doctor');
+const Patient = require('../Models/patient')
 exports.getPrescriptions = async (req, res) => {
   try {
     const prescriptions = await Prescription.find();
     res.json(prescriptions);
   } catch (error) {
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ message: 'Server Error',
+      error:error.message
+    });
   }
 };
 exports.createPrescription = async (req, res) => {
-  const { patientId, doctorId, medications, diagnosis } = req.body;
+  const { PrescriptionID, PatientID, DoctorID, MedicationDetails, Dosage, Date } = req.body;
+  console.log("Received body:", req.body);
+
+  if (!PrescriptionID || !PatientID || !DoctorID || !Date || !MedicationDetails || !Dosage) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  const patientExists = await Patient.findById(PatientID);
+const doctorExists = await Doctor.findById(DoctorID);
+if (!patientExists || !doctorExists) {
+  return res.status(400).json({ error: "Invalid PatientID or DoctorID" });
+}
 
   try {
-    const newPrescription = new Prescription({ patientId, doctorId, medications, diagnosis });
+    const newPrescription = new Prescription({ PrescriptionID,PatientID, DoctorID, MedicationDetails, Dosage, Date });
     await newPrescription.save();
     res.status(201).json(newPrescription);
   } catch (error) {
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ message: 'Server Error',
+      error:error.message
+     });
   }
 };
 exports.getPrescriptionById = async (req, res) => {

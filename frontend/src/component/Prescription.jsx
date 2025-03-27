@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const PrescriptionForm = ({ editingPrescription }) => {
     const [prescription, setPrescription] = useState({
-        PrescriptionID: '',
+        PrescriptionID: `PRE-${Date.now()}`,
         PatientID: '',
         DoctorID: '',
         Date: '',
