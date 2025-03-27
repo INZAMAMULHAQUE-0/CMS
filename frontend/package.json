@@ -6,8 +6,9 @@
   "scripts": {
   "dev": "vite",
   "build": "vite build",
-  "lint": "eslint .",
-  "preview": "vite preview"
+  "preview": "vite preview --port $PORT",
+  "start": "vite preview --port $PORT",
+  "lint": "eslint ."
 },
 "engines": {
   "node": ">=18.0.0",
