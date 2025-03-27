@@ -1,4 +1,4 @@
-const Patient = require('../Models/patientModel');
+const Patient = require('../Models/patient');
 exports.getPatients = async (req, res) => {
   try {
     const patients = await Patient.find();
