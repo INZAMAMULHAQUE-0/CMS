@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import axios from 'axios';
 import Picture from '../assets/image/Picture.jpg';
 import { Box, Flex, Grid, GridItem, Text, Button, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 import { FaFileInvoiceDollar, FaChartLine } from 'react-icons/fa';
@@ -35,29 +36,44 @@ const Dashboard = () => {
     },
   };
 
-  const recentTransactions = [
-    { id: 1, date: '2024-08-26', patient: 'Ayan', amount: '$900' },
-    { id: 2, date: '2024-08-23', patient: 'Inzamam', amount: '$1000' },
-    { id: 3, date: '2024-08-22', patient: 'Junaid', amount: '$2000' },
-    { id: 4, date: '2024-08-22', patient: 'ayush', amount: '$3000' },
-    { id: 5, date: '2024-08-22', patient: 'Sahil', amount: '$5000' },
-    { id: 6, date: '2024-08-29', patient: 'triptendu', amount: '$1000' },
-    { id: 7, date: '2024-08-29', patient: 'umar', amount: '$1900' },
-    { id: 8, date: '2024-08-29', patient: 'Ebadur', amount: '$1500' },
-    { id: 9, date: '2024-08-29', patient: 'Anand', amount: '$700' },
-    { id: 10, date: '2024-08-29', patient: 'james', amount: '$1200' },
-    { id: 11, date: '2024-08-29', patient: 'Oliver', amount: '$1000' },
-    { id: 12, date: '2024-08-29', patient: 'Liam', amount: '$500' },
-    { id: 13, date: '2024-08-29', patient: 'Henry', amount: '$600' },
-    { id: 14, date: '2024-08-29', patient: 'Jack', amount: '$300' },
-    { id: 15, date: '2024-08-29', patient: 'Levi', amount: '$900' },
-    { id: 16, date: '2024-08-29', patient: 'Lucas', amount: '$12000' },
-    { id: 17, date: '2024-08-29', patient: 'Shivangi', amount: '$1300' },
-    { id: 18, date: '2024-08-29', patient: 'Shreya', amount: '$500' },
-    { id: 19, date: '2024-08-29', patient: 'Akansha', amount: '$700' },
-    { id: 20, date: '2024-08-29', patient: 'Itachi', amount: '$800' },
-  ];
+  const [recentTransactions, setRecentTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedPatient, setSelectedPatient] = useState([]);
 
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`${VITE_BACKEND_URL}/api/transactions`);
+        setRecentTransactions(res.data);
+      } catch (error) {
+        console.error('Error fetching transactions:', error);
+        setError('Failed to load transactions');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTransactions();
+  }, []);
+  
+  useEffect(() => {
+    async function fetchPatient() {
+      try {
+        // Only fetch if there are transactions
+        if (recentTransactions.length > 0) {
+          const resPatient = await axios.get(`${VITE_BACKEND_URL}/api/transactions/patients`);
+          setSelectedPatient(resPatient.data);
+        }
+      } catch (error) {
+        console.log("Unable to fetch selected patient", error);
+      }
+    }
+
+    fetchPatient();
+  }, [recentTransactions]); 
+
+  
   return (
     <div
       className="dashboard-container"
@@ -127,10 +143,10 @@ const Dashboard = () => {
                 <Tbody>
                   {recentTransactions.map(transaction => (
                     <Tr key={transaction.id}>
-                      <Td>{transaction.id}</Td>
+                      <Td>{selectedPatient.p_id}</Td>
                       <Td>{transaction.date}</Td>
                       <Td>{transaction.patient}</Td>
-                      <Td isNumeric>{transaction.amount}</Td>
+                      <Td isNumeric>{transaction.billAmount}</Td>
                     </Tr>
                   ))}
                 </Tbody>

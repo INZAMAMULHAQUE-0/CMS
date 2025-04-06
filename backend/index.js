@@ -26,7 +26,7 @@ app.use('/api/prescriptions', require('./routes/prescriptionRoutes'));
 app.use('/api/diseases', require('./routes/diseaseRoutes'));
 app.use('/api/billings', require('./routes/billingRoutes'));
 app.use('/api/transactions', require('./routes/transactionRoutes'));
-
+app.use('/api/transactions/patients',require('./routes/transactionRoutes'));
 // Error handler middleware
 const errorHandler = require('./middleware/errorHandler');
 app.use(errorHandler);

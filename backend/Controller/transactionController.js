@@ -1,3 +1,4 @@
+const Patient = require('../Models/patient');
 const Transaction = require('../Models/Transaction');
 
 // Get all transactions
@@ -12,6 +13,25 @@ exports.getTransactions = async (req, res) => {
     });
   }
 };
+
+// exports.getPatientsByTranscationId = async (req,res) => {
+//   try{
+//     const transactions =await Transaction.find();
+//     transactions.map((el)=>{setPatientId(el.p_id)})
+//     patientId.map((el)=>{
+//       const transactionPatients = patient.find(el);
+//       res.json(transactionPatients);
+      
+//     })
+//   }
+//   catch(error)
+//   {
+//     res.status(500).json({
+//       message:'Server Error',
+//       error: error.message
+//     });
+//   }
+// };
 
 // Create a new transaction
 exports.createTransaction = async (req, res) => {
@@ -39,6 +59,31 @@ exports.createTransaction = async (req, res) => {
     res.status(500).json({ 
       message: 'Failed to create transaction',
       error: error.message 
+    });
+  }
+};
+
+exports.getPatientsByTransactionId = async (req, res) => {
+  try {
+    const transactions = await Transaction.find();
+    
+    // Extract unique patient IDs
+    const patientIds = [...new Set(transactions.map(el => el.p_id))];
+    
+    // Fetch all patients in a single query
+    const patients = await Patient.find({ _id: { $in: patientIds } });
+
+    res.json({
+      success: true,
+      count: patients.length,
+      data: patients
+    });
+    
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Server Error',
+      error: error.message
     });
   }
 };

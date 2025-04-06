@@ -10,5 +10,3 @@ const doctorSchema = new mongoose.Schema({
 });
 
 module.exports =mongoose.models.Doctor|| mongoose.model('Doctor', doctorSchema);
-
-module.exports = mongoose.models.Doctor || mongoose.model('Doctor', doctorSchema)
